@@ -48,7 +48,7 @@ class HealthCareChatBot:
     def load_cols(self):
         column = self.cols
         return column
-
+ 
     # Other methods remain the same
 
     def train_model(self):
@@ -91,7 +91,7 @@ class HealthCareChatBot:
                         print(f"Invalid severity value '{severity_str}' for symptom '{symptom}'. Skipping...")
             except IndexError:
                 pass
-
+ 
     def getprecautionDict(self):
         with open('symptom_precaution.csv') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
