@@ -3,9 +3,6 @@ import pandas as pd
 import numpy as np
 import csv
 import re
-import subprocess
-# Install scikit-learn
-subprocess.run(['pip', 'install', 'scikit-learn'])
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.svm import SVC
@@ -51,7 +48,7 @@ class HealthCareChatBot:
     def load_cols(self):
         column = self.cols
         return column
- 
+
     # Other methods remain the same
 
     def train_model(self):
@@ -94,7 +91,7 @@ class HealthCareChatBot:
                         print(f"Invalid severity value '{severity_str}' for symptom '{symptom}'. Skipping...")
             except IndexError:
                 pass
-  
+
     def getprecautionDict(self):
         with open('symptom_precaution.csv') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
@@ -144,6 +141,7 @@ class HealthCareChatBot:
             st.write("It might not be that bad, but you should take precautions.")
 
     def tree_to_code(self, tree, feature_names):
+        st.title('Symptom Prediction ')
         tree_ = tree.tree_
         feature_name = [feature_names[i] if i != _tree.TREE_UNDEFINED else "undefined!" 
                         for i in tree_.feature]
@@ -250,12 +248,29 @@ def predict(image):
         _, predicted = torch.max(outputs, 1)
         if predicted == 0:
             prediction = 'Melanoma'
+            st.write('Prediction: MELANOMA')
+            st.write("Schedule a Dermatologist Appointment")
+            st.write("Melanoma is a type of skin cancer that develops in the melanocytes, the cells that produce melanin, the pigment that gives your skin its color. It's one of the more serious types of skin cancer because it can spread to other parts of the body if not detected early. Factors such as excessive sun exposure, having a fair complexion, a history of sunburns, or a family history of melanoma can increase your risk.")
+            st.write("Precaution")
+            st.write("1.Avoid Sun Exposure")
+            st.write("2.Use Protective Clothing and Sunscreen")
+            st.write("3.Monitor Your Skin Regularly")
+            st.write("4.Maintain a Healthy Lifestyle")
         else:
             prediction = 'Allergy'
+            st.write('Prediction: ALLERGY')
+            st.write('Take care ')
+            st.write("Skin allergies occur when your immune system reacts to a harmless substance as though it were a threat. This reaction can cause symptoms ranging from mild redness and itching to severe blisters or swelling. Common triggers include certain foods, pollen, pet dander, and certain fabrics or chemicals.")
+            st.write("Precaution")
+            st.write("1.Avoid the Allergen")
+            st.write("2.Keep Skin Moisturized")
+            st.write("3.Cool Compresses")
+            st.write("4.Wear Soft, Breathable Clothing")
     return prediction
 
+
 def display_skin_cancer_app():
-    st.title('Skin Disease prediction ')
+    st.title('Skin Disease Prediction ')
     st.write('Upload an image of the skin lesion to predict whether it is melanoma or an allergy.')
 
     uploaded_file = st.file_uploader("Choose an image...", type="jpg")
@@ -265,7 +280,7 @@ def display_skin_cancer_app():
 
         if st.button('Predict'):
             prediction = predict(image)
-            st.success(f'Prediction: {prediction}')
+            #st.success(f'Prediction: {prediction}')
 
 def main():
     # Set page config to add CSS styles
@@ -282,97 +297,130 @@ def main():
         
 <style>
     /* Body Styles */
-    body {
-        font-family: 'Roboto', sans-serif; /* Google Font */
-        color: #333; /* Text color */
-        margin: 0; /* Remove default margin */
-        padding: 0; /* Remove default padding */
-        background-image: url('https://source.unsplash.com/random/1920x1080/?nature,landscape');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    }
+    /* Body Styles */
+body {
+    font-family: 'Roboto', sans-serif; /* Google Font */
+    color: #333; /* Text color */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    background-image: url('https://img.freepik.com/free-vector/abstract-technological-background_23-2148897676.jpg?w=826&t=st=1712843310~exp=1712843910~hmac=1bf1072b0370358c97842bc70cb518c2e4f1031615e5e5de44f22240e0964190');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
 
-    /* Application Container Styles */
-    .stApp {
-        max-width: 1200px;
-        margin: auto;
-        padding: 40px;
-        background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Drop shadow effect */
-        overflow: hidden; /* Hide content overflow */
-    }
+/* Application Container Styles */
+.stApp {
+    background-image: url('https://img.freepik.com/free-vector/abstract-technological-background_23-2148897676.jpg?w=826&t=st=1712843310~exp=1712843910~hmac=1bf1072b0370358c97842bc70cb518c2e4f1031615e5e5de44f22240e0964190');
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Drop shadow effect */
+    overflow: hidden; /* Hide content overflow */
+}
 
-    /* Title Styles */
-    .stTitle {
-        font-size: 2.5rem;
-        margin-bottom: 20px;
-    }
+/* Title Styles */
+.stTitle {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #ffffff; /* Green color */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Text shadow for a 3D effect */
+    animation: glow 2s ease-in-out infinite alternate; /* Text glow animation */
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out; /* Smooth transform and color transition */
+}
 
-    /* Subtitle Styles */
-    .stSubtitle {
-        font-size: 1.5rem;
-        margin-bottom: 10px;
+/* Glow animation keyframes */
+@keyframes glow {
+    from {
+        text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3);
     }
+    to {
+        text-shadow: 4px 4px 8px rgba(255, 215, 0, 2);
+    }
+}
 
-    /* Button Styles */
-    .stButton {
-        background-color: #4CAF50; /* Green background color */
-        color: white;
-        padding: 12px 24px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        font-size: 1rem;
-    }
+/* Hover effect */
+.stTitle:hover {
+    transform: scale(1.05); /* Scale up on hover */
+    color: #ffffff; /* Darker green color on hover */
+}
 
-    .stButton:hover {
-        background-color: #45a049; /* Darker green on hover */
-    }
+/* Subtitle Styles */
+.stSubtitle {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
 
-    /* Form Input Styles */
-    .stTextInput, .stSelectbox, .stTextArea {
-        border: 1px solid #ccc; /* Gray border */
-        border-radius: 5px;
-        padding: 12px;
-        margin-bottom: 20px;
-        width: 100%;
-        box-sizing: border-box; /* Include padding and border in element's total width */
-        font-size: 1rem;
-    }
+/* Button Styles */
+.stbutton {
+    background-color: #4CAF50; /* Green background color */
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1rem;
+}
 
-    .stTextInput:focus, .stSelectbox:focus, .stTextArea:focus {
-        border-color: #4CAF50; /* Green border color when focused */
-    }
+.stButton:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
 
-    /* Image Styles */
-    .stImage {
-        max-width: 100%;
-        height: auto;
-        border-radius: 5px;
-        margin-bottom: 20px;
-    }
+/* Form Input Styles */
+.stTextInput, .stSelectbox, .stTextArea {
+    border: 1px solid #ccc; /* Gray border */
+    border-radius: 5px;
+    padding: 12px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box; /* Include padding and border in element's total width */
+    font-size: 1rem;
+}
 
-    /* Card Styles */
-    .stCard {
-        background-color: #f9f9f9;
-        border-radius: 10px;
-        padding: 20px;
-        margin-bottom: 20px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    }
+.stTextInput:focus, .stSelectbox:focus, .stTextArea:focus {
+    border-color: #4CAF50; /* Green border color when focused */
+}
+
+/* Image Styles */
+.stImage {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* Card Styles */
+.stCard {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Radio button styles */
+.radio{
+    font-size: 9rem;
+    margin-right: 10px;
+}
 </style>
         """,
         unsafe_allow_html=True
     )
 
-    # Display the title and greeting
-    st.title("Choose the Application to Open")
-    st.write("Select which application you want to open:")
-    selected_option = st.radio("Select Application:", ("Common Diseases", "Skin Diseases"), None)
+   # Apply title styling using markdown
+    st.markdown('<p class="stTitle">Choose the Application to Open</p>', unsafe_allow_html=True)
 
+# Apply radio button styling using markdown
+    selected_option = st.radio(
+    "Select Application:",
+    ("Common Diseases", "Skin Diseases")
+    )
+
+# Collect user input
     name = st.text_input("What is your name?")
     greeting = f"Hello {name}!" if name else ""
     st.write(greeting)
