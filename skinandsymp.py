@@ -3,6 +3,9 @@ import pandas as pd
 import numpy as np
 import csv
 import re
+import subprocess
+# Install scikit-learn
+subprocess.run(['pip', 'install', 'scikit-learn'])
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.svm import SVC
