@@ -312,6 +312,8 @@ body {
 /* Application Container Styles */
 .stApp {
     background-image: url('https://img.freepik.com/free-vector/abstract-technological-background_23-2148897676.jpg?w=826&t=st=1712843310~exp=1712843910~hmac=1bf1072b0370358c97842bc70cb518c2e4f1031615e5e5de44f22240e0964190');
+    background-size: cover; /* Cover the entire background area */
+    background-position: center; /* Center the background image */
     max-width: 1200px;
     margin: auto;
     padding: 40px;
