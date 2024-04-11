@@ -48,7 +48,7 @@ class HealthCareChatBot:
     def load_cols(self):
         column = self.cols
         return column
-
+ 
     # Other methods remain the same
 
     def train_model(self):
